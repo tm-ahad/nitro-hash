@@ -91,10 +91,4 @@ impl HasherConfig<'_> {
     }
 }
 
-fn main() {
-    let mut h = HasherConfig::new();
-
-    h.secure = 15;
-
-    println!("{}", h.hash("Tjahmid"));
-}
+fn main() {}

@@ -1,0 +1,1 @@
+A hasing algorithm written in rust with performance.
