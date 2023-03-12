@@ -3,10 +3,10 @@
 #[derive(Copy, Clone)]
 /// A inital set up to hash Strings.
 pub struct HasherConfig<'a> {
-    secure: u8,
-    hash_len: u8,
-    salt: &'a str,
-    rihl: usize
+    pub secure: u8,
+    pub hash_len: u8,
+    pub salt: &'a str,
+    pub rihl: usize
 }
 
 fn index(s: [char; 71], i: usize) -> char {
