@@ -1,5 +1,7 @@
+//! # nitro_hash
 
 #[derive(Copy, Clone)]
+/// A inital set up to hash Strings.
 pub struct HasherConfig<'a> {
     secure: u8,
     hash_len: u8,
@@ -71,6 +73,17 @@ impl HasherConfig<'_> {
         fin
     }
 
+    /// Mainly hashing strings
+    /// Here's a example of it
+    /// # Examples
+    /// ```
+    /// let mut hasher = HasherConfig::new();
+    /// hasher.secure = 3; //Default 1, But security increase cause performance decrease linearly
+    /// hasher.salt = "Super-Secret-Salt"; //Setting salt
+    /// hasher.hash_len = 32; //Length final hashed string Default, 16
+    ///
+    /// println!("{}", hasher.hash("Super-secret-password")); //Hash
+    ///
     pub fn hash(&self, s: &str) -> String {
         let mut _h = s.to_string();
 
@@ -81,6 +94,8 @@ impl HasherConfig<'_> {
         format!("${_h}")
     }
 
+    /// Create A new Hasher Config
+    /// Check the hash function
     pub fn new<'a>() -> HasherConfig<'a> {
         HasherConfig {
             secure: 2,

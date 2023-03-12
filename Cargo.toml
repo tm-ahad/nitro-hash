@@ -1,7 +1,12 @@
 [package]
 name = "nitro-hash"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
+license="MIT"
+authors=["TM AHAD"]
+description="A hasing algorithm written in rust that cares about performance."
+repository='https://github.com/tm-ahad/nitro-hash'
+readme="A hasing algorithm written in rust that cares about performance."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
