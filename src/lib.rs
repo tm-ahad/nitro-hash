@@ -9,7 +9,7 @@ pub struct HasherConfig<'a> {
     pub rihl: usize
 }
 
-fn index(s: [char; 71], i: usize) -> char {
+fn index(s: Vec<char>, i: usize) -> char {
     let len = s.len();
 
     return if i >= len {
@@ -21,8 +21,15 @@ fn index(s: [char; 71], i: usize) -> char {
 
 impl HasherConfig<'_> {
     fn _hash(self, s: String) -> String {
-        let char_v = ['1','2','3','-','4','5','6','7','8','9','0','!','@','#','$','%','^','&','*','q','f','w','e','r','t','y','u','i','o','p','a','s','d','g','h','j','k','l','z','x','c','v','b','n','m','Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M'];
+        let mut char_v: Vec<char> = vec!['g', 'h', 'j', 'k', 'l','1', '2', '3', '-', '4', '5', '6', '7', '8', '9', '0', '!', '@', '#', '$', '%', '^', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd'];
         let mut sa = format!("{}#{}", s.replace(" ", ""), self.salt);
+
+        for c in self.salt.chars() {
+            char_v.push(c)
+        }
+
+        char_v.extend(vec!['z', '&', '*', 'q', 'f', 'x', 'c', 'v', 'b', 'n', 'm', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M']);
+
         let mut len = sa.len();
 
         if len >= self.hash_len as usize {
@@ -43,12 +50,12 @@ impl HasherConfig<'_> {
                 let mut founded = true;
                 let mut b = 0;
 
-                for c in char_v {
+                for c in char_v.clone() {
                     if a == c {
                         if hmm && b > len {
-                            state.push(index(char_v, b-len))
+                            state.push(index(char_v.clone(), b-len))
                         } else {
-                            state.push(index(char_v, b+len))
+                            state.push(index(char_v.clone(), b+len))
                         }
 
                         founded = false
@@ -77,13 +84,14 @@ impl HasherConfig<'_> {
     /// Here's a example of it
     /// # Examples
     /// ```
+    /// use nitro_hash::HasherConfig;
+    ///
     /// let mut hasher = HasherConfig::new();
     /// hasher.secure = 3; //Default 1, But security increase cause performance decrease linearly
     /// hasher.salt = "Super-Secret-Salt"; //Setting salt
     /// hasher.hash_len = 32; //Length final hashed string Default, 16
     ///
-    /// println!("{}", hasher.hash("Super-secret-password")); //Hash
-    ///
+    /// println!("{}", hasher.hash("Super-secret-password")); //Hash    ///
     pub fn hash(&self, s: &str) -> String {
         let mut _h = s.to_string();
 
